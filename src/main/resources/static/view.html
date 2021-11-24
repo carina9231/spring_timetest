@@ -44,6 +44,53 @@
         }
     </style>
     <script>
+        let idx = '';
+        $(document).ready(function () {
+            idx = getParam('idx');
+            getQuestion(idx);
+        });
+
+        function getParam(name) {
+            var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+            return results[1] || 0;
+        }
+        //제목, 내용, 댓글리스트 보여주기
+        function getQuestion() {
+            $.ajax({
+                type: "GET",
+                url: `/question/${idx}`,
+                success: function (response) {
+                    $("#title").html(response['title']);
+                    $("#content").html(response['content']);
+                    $("#comment-list").empty();
+                    for (let i = 0; i < response['comments'].length; i++) {
+                        makeListComment(response['comments'][i])
+                    }
+                }
+            })
+        }
+        //댓글 작성
+        function setComment() {
+            let comment = {
+                "idx":idx,
+                "comment":$("#comment").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: `/question/comment`,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(comment),
+                success: function (response) {
+                    alert("댓글이 작성되었습니다!!");
+                    getQuestion();
+                }
+            })
+        }
+
+        function makeListComment(comment) {
+            let tempHtml = `<li class="list-group-item">${comment['comment']}</li>`;
+            $("#comment-list").append(tempHtml);
+        }
 
     </script>
 
@@ -65,7 +112,7 @@
     </div>
     <hr/>
     <textarea class="form-control" id="comment" rows="3"></textarea>
-    <button type="button" class="btn btn-primary" onclick="setArticleComment()">댓글작성</button>
+    <button type="button" class="btn btn-primary" onclick="setComment()">댓글작성</button>
     <button type="button" class="btn btn-primary" onclick="location.href='/'">목록으로</button>
     <hr/>
     <ul class="list-group" id="comment-list">
