@@ -14,5 +14,10 @@ public class FrontController {
         public String getPageView() {
             return "view";
         }
+
+    @GetMapping("/modify/{idx}")
+        public String getModify() {
+            return "modify";
+    }
     }
 

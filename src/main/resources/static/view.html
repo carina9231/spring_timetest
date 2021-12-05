@@ -69,6 +69,9 @@
                 }
             })
         }
+
+
+
         //댓글 작성
         function setComment() {
             let comment = {
@@ -82,7 +85,7 @@
                 data: JSON.stringify(comment),
                 success: function (response) {
                     alert("댓글이 작성되었습니다!!");
-                    getQuestion();
+                    window.location.reload();
                 }
             })
         }
@@ -90,6 +93,13 @@
         function makeListComment(comment) {
             let tempHtml = `<li class="list-group-item">${comment['comment']}</li>`;
             $("#comment-list").append(tempHtml);
+        }
+
+        function Modify() {
+            var popup = window.open(`/modify/${idx}`, '네이버팝업', 'width=700px,height=700px,scrollbars=yes');
+            popup.onbeforeunload=function (){
+                window.location.reload();
+            }
         }
 
     </script>
@@ -109,6 +119,9 @@
     <div class="form-group">
         <label for="content">간단한 내용</label>
         <div id="content"></div>
+    </div>
+    <div class="modify">
+        <button onclick="Modify()">수정하기</button>
     </div>
     <hr/>
     <textarea class="form-control" id="comment" rows="3"></textarea>

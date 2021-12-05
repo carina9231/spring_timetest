@@ -43,4 +43,13 @@ public class QuestionService {
         Comment comment = new Comment(commentRequestDto, question);
         commentRepository.save(comment);
     }
+
+    @Transactional
+    public Long update(Long id, QuestionRequestDto requestDto) {
+        Question question = questionRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
+        );
+        question.update(requestDto);
+        return question.getIdx();
+    }
 }

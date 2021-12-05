@@ -34,4 +34,9 @@ public class Question extends Timestamped { // 생성,수정 시간을 자동으
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
+
+    public void update(QuestionRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+    }
 }

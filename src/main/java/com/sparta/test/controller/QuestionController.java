@@ -37,4 +37,10 @@ public class QuestionController {
         // 응답 보내기
         questionService.setComment(commentRequestDto);
     }
+
+    @PutMapping("/question/{id}")
+    public Long update(@PathVariable Long id, @RequestBody QuestionRequestDto requestDto) {
+        questionService.update(id, requestDto);
+        return id;
+    }
 }
