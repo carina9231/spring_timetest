@@ -24,8 +24,8 @@
     <!-- 구글폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
-    <link rel="stylesheet" href="bootstrap-tagsinput.css">
-    <script src="bootstrap-tagsinput.js"></script>
+    <link rel="stylesheet" href="/static/bootstrap-tagsinput.css">
+    <link href="/static/bootstrap-tagsinput.js">
 
     <title>내배캠 | 타임어택</title>
     <style type="text/css">
@@ -110,6 +110,7 @@
             let tempHtml = ` <tr>
                       <th scope="row">${index}</th>
                       <td><a href="view.html?idx=${article['idx']}">${article['title']}</td>
+                      <td>글쓴이</td>
                       <td>${article['comments'].length}</td>
                       <td>${tags}</td>
                       <td>${article['createdAt']}</td>
@@ -183,6 +184,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">제목</th>
+            <th scope="col">글쓴이</th>
             <th scope="col">댓글수</th>
             <th scope="col">태그</th>
             <th scope="col">등록일자</th>

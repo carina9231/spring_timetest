@@ -14,11 +14,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
             http.headers().frameOptions().disable();
 
             http.authorizeRequests()
-                    .loginPage("/user/login")
-                    .failureUrl("/user/login/error")
+                    // image 폴더를 login 없이 허용
+                    .antMatchers("/images/**").permitAll()
+                    // css 폴더를 login 없이 허용
+                    .antMatchers("/css/**").permitAll()
+                    .antMatchers("/user/**").permitAll()
+                    .antMatchers("/h2-console/**").permitAll()
+                    // 그 외 모든 요청은 인증과정 필요
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()
+                    .loginPage("/user/login")
+                    .loginProcessingUrl("/user/login")
                     .defaultSuccessUrl("/")
                     .permitAll()
                     .and()
